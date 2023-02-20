@@ -21,6 +21,11 @@
       "supportsTablet": true
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBVjd4JnSqTmEJPdMAL0QNbQg4ry6Tz2T4"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -35,6 +40,21 @@
         "projectId": "b5a4f44c-27b4-4794-943d-80d3c9cc0b95"
       }
     },
-    "owner": "kentus"
+    "owner": "kentus",
+    "plugins": [
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "smart-software-consulting",
+            "project": "react-native",
+            "authToken": "ae44ef2803df474aaad116e797877acc8fedf82264db4ffc81f39fd722a4f8e3"
+          }
+        }
+      ]
+    }
   }
 }

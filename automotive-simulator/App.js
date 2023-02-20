@@ -13,6 +13,14 @@ import Constants from 'expo-constants';
 import {createBottomTabNavigator, useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native';
 
+import * as Sentry from 'sentry-expo';
+
+Sentry.init({
+  dsn: 'https://b0336f5089eb46ceb5a6b890d36b3435@o996231.ingest.sentry.io/4504713968025600',
+  enableInExpoDevelopment: true,
+  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+});
+
 HomeScreen = () => {
   const [trips, setTrips] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -128,7 +136,7 @@ function SimulationScreen() {
       createdAt: Math.floor(Date.now() / 1000),
     });
     console.log(body)
-    fetch('http://119.8.212.248:4000/events/create', {
+    fetch('http://host/events/create', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -140,12 +148,11 @@ function SimulationScreen() {
   const addPoint = () => {
     let futureIndexPoint = indexPoint + 1;
     indexPoint = futureIndexPoint;
-    console.log('gg', simulationOption)
     let inputArray = simulationOne
     if (simulationOption != 1) {
       inputArray = simulationTwo;
     }
-    // sendToApi();
+    
     setMarkers(markers => [...markers, inputArray[indexPoint]]);
     if (inputArray[futureIndexPoint]) {
       setTextButtonSimulation('Simulation in progress.')
